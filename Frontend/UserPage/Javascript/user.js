@@ -1,5 +1,5 @@
 const toUpload = () => {
-    window.location.replace("../../UploadPage/HTML/upload.html");
+    window.location.replace("../../UploadPage/HTML/index.html");
 }
 
 const toUser = () => {
