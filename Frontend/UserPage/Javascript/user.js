@@ -11,6 +11,10 @@ const navigate_ebook = () => {
 }
 
 const display_results = (data) => {
+    let parent = document.getElementById("search_results");
+    while(parent.firstChild) {
+        parent.firstChild.remove();
+    }
     for (let i = 0; i < data.length; i++) {
         let button = document.createElement("button");
         let new_div = document.createElement("div");
