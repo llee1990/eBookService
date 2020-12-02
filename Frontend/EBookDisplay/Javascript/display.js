@@ -50,9 +50,9 @@ const page_populate = () => {
     let edit_ebook = document.getElementById("edit");
     let delete_ebook = document.getElementById("delete_ebook");
 
-    document.getElementById("title").innerHTML = `Title: ${ebook.title}`;
-    document.getElementById("author").innerHTML = `Author: ${ebook.author}`;
-    document.getElementById("genre").innerHTML = `Genre: ${ebook.genre}`;
+    document.getElementById("title").innerHTML = `Title: ${titleCase(ebook.title)}`;
+    document.getElementById("author").innerHTML = `Author: ${titleCase(ebook.author)}`;
+    document.getElementById("genre").innerHTML = `Genre: ${titleCase(ebook.genre)}`;
     document.getElementById("year").innerHTML = `Published on: ${ebook.year}`;
     document.getElementById("ebook_contents").innerHTML = ebook.content;
 

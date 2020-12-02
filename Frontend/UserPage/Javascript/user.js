@@ -22,8 +22,8 @@ const display_results = (data) => {
         new_div.className = "eBookLinks"
         link.href = "../../EBookDisplay/HTML/display.html";
         let ebook =  data[i];
-        link.innerHTML = `${ebook.title}\n`;
-        linkInfo.innerHTML = `Author: ${ebook.author}\nPublished Year: ${ebook.year}\nGenre: ${ebook.genre}\n\n`;
+        link.innerHTML = `${titleCase(ebook.title)}\n`;
+        linkInfo.innerHTML = `Author: ${titleCase(ebook.author)}\nPublished Year: ${ebook.year}\nGenre: ${titleCase(ebook.genre)}\n\n`;
         link.onclick = () => {
             sessionStorage.setItem("title", ebook.title);
             sessionStorage.setItem("author", ebook.author);
