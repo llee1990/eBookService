@@ -23,7 +23,7 @@ const display_results = (data) => {
         link.href = "../../EBookDisplay/HTML/display.html";
         let ebook =  data[i];
         link.innerHTML = `${ebook.title}\n`;
-        linkInfo.innerHTML = `${ebook.author}\n${ebook.year}\n${ebook.genre}\n\n`;
+        linkInfo.innerHTML = `Author: ${ebook.author}\nPublished Year: ${ebook.year}\nGenre: ${ebook.genre}\n\n`;
         link.onclick = () => {
             sessionStorage.setItem("title", ebook.title);
             sessionStorage.setItem("author", ebook.author);
@@ -139,6 +139,26 @@ const search_by_user = () => {
     })
 }
 
+const search_all_ebooks = () => {
+    let token = sessionStorage.getItem("token");
+    axios({
+        method: 'GET',
+        url: `${BASE_URL}/api/ebooks`,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+    })
+    .then(response => {
+        console.log("=====SUCCESSSS======")
+        console.log(JSON.stringify(response.data))
+        display_results(response.data.msg);
+    }).catch(error => {
+        console.log("==========FAILED================")
+        console.log(error.response.data.msg)
+    })
+}
+
 const search_by_specific_user = (specific_user) => {
     let token = sessionStorage.getItem("token");
     axios({
@@ -189,12 +209,14 @@ const pageNavigation = (userInfo) => {
     let user = document.getElementById("user_info_settings");
     let submit = document.getElementById("eb_submit");
     let user_search = document.getElementById("eb_user_search");
+    let all_search = document.getElementById("eb_total_search");
 
     user_search.value = `${userInfo.username}'s eBooks`
     upload.onclick = toUpload;
     user.onclick = toUser;
     submit.onclick = search_function;
     user_search.onclick = search_by_user;
+    all_search.onclick = search_all_ebooks;
 }
 
 const signOut = () => {
