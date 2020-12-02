@@ -11,6 +11,10 @@ const navigate_ebook = () => {
 }
 
 const display_results = (data) => {
+    let parent = document.getElementById("search_results");
+    while(parent.firstChild) {
+        parent.firstChild.remove();
+    }
     for (let i = 0; i < data.length; i++) {
         let link = document.createElement("a");
         let linkInfo = document.createElement("div");
@@ -27,6 +31,7 @@ const display_results = (data) => {
             sessionStorage.setItem("content", ebook.content);
             sessionStorage.setItem("genre", ebook.genre);
             sessionStorage.setItem("bookID", ebook.id);
+            sessionStorage.setItem("eBookOwnership", ebook.userID);            
         }
         new_div.appendChild(link);
         new_div.appendChild(linkInfo);

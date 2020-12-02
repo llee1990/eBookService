@@ -7,6 +7,10 @@ const navigate_edit = () => {
 }
 
 const delete_current = () => {
+    if (sessionStorage.getItem("userID") != sessionStorage.getItem("eBookOwnership")) {
+        window.alert("You are not the owner of this eBook. You can't delete it.");
+        return;
+    }
     let token = sessionStorage.getItem("token");
     let body = {
         author: sessionStorage.getItem("author"),
