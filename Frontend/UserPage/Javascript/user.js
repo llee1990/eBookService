@@ -184,12 +184,13 @@ const search_function = () => {
     }
 }
 
-const pageNavigation = () => {
+const pageNavigation = (userInfo) => {
     let upload = document.getElementById("eb_upload");
     let user = document.getElementById("user_info_settings");
     let submit = document.getElementById("eb_submit");
     let user_search = document.getElementById("eb_user_search");
 
+    user_search.value = `${userInfo.username}'s eBooks`
     upload.onclick = toUpload;
     user.onclick = toUser;
     submit.onclick = search_function;
@@ -208,7 +209,7 @@ const main = () => {
     if (checkUserForNull(user)) {
         redirectToHome();
     }
-    pageNavigation();
+    pageNavigation(user);
 }
 
 main();
