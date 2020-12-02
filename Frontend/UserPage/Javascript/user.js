@@ -12,20 +12,24 @@ const navigate_ebook = () => {
 
 const display_results = (data) => {
     for (let i = 0; i < data.length; i++) {
-        let button = document.createElement("button");
+        let link = document.createElement("a");
+        let linkInfo = document.createElement("div");
         let new_div = document.createElement("div");
+        new_div.className = "eBookLinks"
+        link.href = "../../EBookDisplay/HTML/display.html";
         let ebook =  data[i];
-        button.innerHTML = ebook.title;
-        button.onclick = () => {
+        link.innerHTML = `${ebook.title}\n`;
+        linkInfo.innerHTML = `${ebook.author}\n${ebook.year}\n${ebook.genre}\n\n`;
+        link.onclick = () => {
             sessionStorage.setItem("title", ebook.title);
             sessionStorage.setItem("author", ebook.author);
             sessionStorage.setItem("year", ebook.year);
             sessionStorage.setItem("content", ebook.content);
             sessionStorage.setItem("genre", ebook.genre);
             sessionStorage.setItem("bookID", ebook.id);
-            navigate_ebook();
         }
-        new_div.appendChild(button);
+        new_div.appendChild(link);
+        new_div.appendChild(linkInfo);
         document.getElementById("search_results").appendChild(new_div);
     }
 }
