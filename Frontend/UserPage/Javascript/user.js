@@ -23,6 +23,7 @@ const display_results = (data) => {
             sessionStorage.setItem("content", ebook.content);
             sessionStorage.setItem("genre", ebook.genre);
             sessionStorage.setItem("bookID", ebook.id);
+            sessionStorage.setItem("eBookOwnership", ebook.userID);            
             navigate_ebook();
         }
         new_div.appendChild(button);
