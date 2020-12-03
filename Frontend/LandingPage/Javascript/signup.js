@@ -8,9 +8,13 @@ const getFormData = () => {
     return user;
 }
 
+const signup_navigation = () => {
+    window.location.replace("../HTML/index.html");
+}
+
 const redirectToLanding = (msg) => {
     alert(msg);
-    window.location.replace("../HTML/index.html");
+    signup_navigation();
 }
 
 const signUp = () => {
