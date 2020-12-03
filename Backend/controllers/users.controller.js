@@ -13,6 +13,11 @@ exports.addEbook = (req, res, next) => {
             msg: 'Please enter correct information for all required fields!'
         });
     }
+    if (isNaN(year) || year.toString().length != 4) {
+        return res.status(400).send({
+            msg: `Please enter a 4 digit year`
+        });
+    }
     db.query(`SELECT * FROM ebooks 
     WHERE title = LOWER(${db.escape(title)})
     AND author = LOWER(${db.escape(author)})`, (err, results) => {
@@ -53,6 +58,11 @@ exports.getAllBooks = (req, res, next) => {
                 msg: `eBook query failed: ${err}`
             });
         }
+        if (!results.length) {
+            return res.status(200).send({
+                msg: "The database is empty",
+            });
+        }
         return res.status(200).send({
             msg: results,
         });
@@ -66,6 +76,11 @@ exports.getBooksByTitle = (req, res, next) => {
             console.log(err);
             return res.status(400).send({
                 msg: `eBook query failed: ${err}`
+            });
+        }
+        if (!results.length) {
+            return res.status(200).send({
+                msg: "No books in the collection match that title",
             });
         }
         return res.status(200).send({
@@ -83,6 +98,11 @@ exports.getBooksByAuthor = (req, res, next) => {
                 msg: `eBook query failed: ${err}`
             });
         }
+        if (!results.length) {
+            return res.status(200).send({
+                msg: "No books in the collection match that author",
+            });
+        }
         return res.status(200).send({
             msg: results,
         });
@@ -98,6 +118,11 @@ exports.getBooksByGenre = (req, res, next) => {
                 msg: `eBook query failed: ${err}`
             });
         }
+        if (!results.length) {
+            return res.status(200).send({
+                msg: "No books in the collection match that genre",
+            });
+        }
         return res.status(200).send({
             msg: results,
         });
@@ -106,11 +131,21 @@ exports.getBooksByGenre = (req, res, next) => {
 
 exports.getBooksByYear = (req, res, next) => {
     let year = req.params.year;
+    if (isNaN(year) || year.toString().length != 4) {
+        return res.status(400).send({
+            msg: `Please enter a 4 digit year`
+        });
+    }
     db.query(`SELECT * FROM ebooks WHERE year=${db.escape(year)}`, (err, results) => {
         if (err) {
             console.log(err);
             return res.status(400).send({
                 msg: `eBook query failed: ${err}`
+            });
+        }
+        if (!results.length) {
+            return res.status(200).send({
+                msg: "No books in the collection match that year",
             });
         }
         return res.status(200).send({
@@ -229,16 +264,16 @@ exports.editUser = (req, res, next) => {
                     if (newPassword) {
                         bcrypt.hash(newPassword, 10, (err, hash) => {
                             db.query(`UPDATE users SET password='${hash}' WHERE id=${userID}`, (err, results) => {
-                            if (err) {
-                                console.log(err);
-                                return res.status(400).send({
-                                    msg: `Password change failed: ${err}`
-                                });
-                            }
-                            console.log("Password changed successfuly");
+                                if (err) {
+                                    console.log(err);
+                                    return res.status(400).send({
+                                        msg: `Password change failed: ${err}`
+                                    });
+                                }
+                                console.log("Password changed successfuly");
+                            })
                         })
-                        })
-                        
+
                     }
 
                     return res.status(200).send({
@@ -246,7 +281,7 @@ exports.editUser = (req, res, next) => {
                     });
                 }
             })
-        }
+    }
     )
 }
 
@@ -258,6 +293,12 @@ exports.editEbook = (req, res, next) => {
     let newAuthor = req.body.newAuthor;
     let newGenre = req.body.newGenre;
     let newYear = req.body.newYear;
+
+    if (newYear && (isNaN(newYear) || newYear.toString().length != 4)) {
+        return res.status(400).send({
+            msg: `Please enter a 4 digit year`
+        });
+    }
 
     db.query(`SELECT * FROM users WHERE id=${userID}`, (err, result) => {
 
@@ -287,60 +328,76 @@ exports.editEbook = (req, res, next) => {
                         });
                     }
 
-                    if (newTitle) {
-                        db.query(`UPDATE ebooks SET title=${db.escape(newTitle)} WHERE id=${bookID}`, (err, results) => {
-                            if (err) {
-                                console.log(err);
-                                return res.status(400).send({
-                                    msg: `Title change failed: ${err}`
-                                });
+                    db.query(`SELECT * FROM ebooks WHERE id=${bookID}`, (err, results) => {
+                        if (err) {
+                            console.log(err);
+                            return res.status(400).send({
+                                msg: `eBook query failed: ${err}`
+                            });
+                        }
+                        if (!results.length) {
+                            return res.status(400).send({
+                                msg: `No eBooks found with that ID`
+                            });
+                        } else {
+                            if (newTitle) {
+                                db.query(`UPDATE ebooks SET title=${db.escape(newTitle)} WHERE id=${bookID}`, (err, results) => {
+                                    if (err) {
+                                        console.log(err);
+                                        return res.status(400).send({
+                                            msg: `Title change failed: ${err}`
+                                        });
+                                    }
+                                    console.log("Title changed successfuly");
+                                })
                             }
-                            console.log("Title changed successfuly");
-                        })
-                    }
 
-                    if (newAuthor) {
-                        db.query(`UPDATE ebooks SET author=${db.escape(newAuthor)} WHERE id=${bookID}`, (err, results) => {
-                            if (err) {
-                                console.log(err);
-                                return res.status(400).send({
-                                    msg: `Author change failed: ${err}`
-                                });
+                            if (newAuthor) {
+                                db.query(`UPDATE ebooks SET author=${db.escape(newAuthor)} WHERE id=${bookID}`, (err, results) => {
+                                    if (err) {
+                                        console.log(err);
+                                        return res.status(400).send({
+                                            msg: `Author change failed: ${err}`
+                                        });
+                                    }
+                                    console.log("Author changed successfuly");
+                                })
                             }
-                            console.log("Author changed successfuly");
-                        })
-                    }
 
-                    if (newGenre) {
-                        db.query(`UPDATE ebooks SET genre=${db.escape(newGenre)} WHERE id=${bookID}`, (err, results) => {
-                            if (err) {
-                                console.log(err);
-                                return res.status(400).send({
-                                    msg: `Genre change failed: ${err}`
-                                });
+                            if (newGenre) {
+                                db.query(`UPDATE ebooks SET genre=${db.escape(newGenre)} WHERE id=${bookID}`, (err, results) => {
+                                    if (err) {
+                                        console.log(err);
+                                        return res.status(400).send({
+                                            msg: `Genre change failed: ${err}`
+                                        });
+                                    }
+                                    console.log("Genre changed successfuly");
+                                })
                             }
-                            console.log("Genre changed successfuly");
-                        })
-                    }
 
-                    if (newYear) {
-                        db.query(`UPDATE ebooks SET year=${db.escape(newYear)} WHERE id=${bookID}`, (err, results) => {
-                            if (err) {
-                                console.log(err);
-                                return res.status(400).send({
-                                    msg: `Publication year change failed: ${err}`
-                                });
+                            if (newYear) {
+                                db.query(`UPDATE ebooks SET year=${db.escape(newYear)} WHERE id=${bookID}`, (err, results) => {
+                                    if (err) {
+                                        console.log(err);
+                                        return res.status(400).send({
+                                            msg: `Publication year change failed: ${err}`
+                                        });
+                                    }
+                                    console.log("Publication year changed successfuly");
+                                })
                             }
-                            console.log("Publication year changed successfuly");
-                        })
-                    }
 
-                    return res.status(200).send({
-                        msg: `eBook information editted successfully`
-                    });
+                            return res.status(200).send({
+                                msg: `eBook information editted successfully`
+                            });
+                        }
+                    })
+
+
                 }
             })
-        }
+    }
     )
 }
 
