@@ -22,11 +22,11 @@
             </div>
         </div>
         <br><br><br>
-        <div class="mb-0 pb-0 form-group" id="search">
+        <div class="mb-0 pb-0 mx-auto container" id="search">
             <label for="eb_search">Search eBooks:</label>
             <input class="form-control" type="text" id="eb_search" name="eb_search"><br><br>
         </div>
-        <div class="form-group" id="search_options">
+        <div class="mx-auto container" id="search_options">
             <form class="row" action="" id="search_o">
                 <label class="col-sm radio-inline"><input type="radio" id="title" name="options" value="title">Title </label>
                 <label class="col-sm radio-inline"><input type="radio" id="genre" name="options" value="genre">Genre </label>
@@ -35,10 +35,13 @@
                 <label class="col-sm radio-inline"><input type="radio" id="user" name="options" value="user">Specific User</label>
             </form>
         </div>
+        <br>
         <div class="row">
-            <input class="ml-2 mr-1 btn btn-outline-secondary" type="submit" id="eb_submit" value="Search">
-            <input class="mr-1 btn btn-outline-secondary" type="submit" id="eb_user_search">
-            <input class="mr-2 btn btn-outline-secondary" type="submit" id="eb_total_search" value="Search All EBooks">
+            <div class="col text-center">
+                <input class="mb-1 ml-2 mr-1 btn btn-outline-secondary" type="submit" id="eb_submit" value="Search">
+                <input class="mb-1 mr-1 btn btn-outline-secondary" type="submit" id="eb_user_search">
+                <input class="mr-2 btn btn-outline-secondary" type="submit" id="eb_total_search" value="Search All EBooks">
+            </div>
         </div>
     </div>
 

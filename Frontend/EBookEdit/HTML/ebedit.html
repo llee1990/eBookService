@@ -7,23 +7,27 @@
     <title>Edit EBook</title>
 </head>
 <body>
-    <div id="ebook_data">
+    <div class="mt-5 container" id="ebook_data">
         <p id="title"></p>
         <label for="ntitle">New Title:</label>
-        <input type="text" id="ntitle" name="ntitle"><br><br>
+        <input class="form-control" type="text" id="ntitle" name="ntitle"><br><br>
         <p id="author"></p>
         <label for="nauthor">New Author:</label>
-        <input type="text" id="nauthor" name="nauthor"><br><br>
+        <input class="form-control" type="text" id="nauthor" name="nauthor"><br><br>
         <p id="genre"></p>
         <label for="ngenre">New Genre:</label>
-        <input type="text" id="ngenre" name="ngenre"><br><br>
+        <input class="form-control" type="text" id="ngenre" name="ngenre"><br><br>
         <p id="year"></p>
         <label for="nyear">New Publication Year:</label>
-        <input type="text" id="nyear" name="nyear"><br><br>
+        <input class="form-control" type="text" id="nyear" name="nyear"><br><br>
         <label for="password">Password:</label>
-        <input type="text" id="password" name="password"><br><br>
-        <button id="edit"></button>
-        <button id="nav_back"></button>
+        <input class="form-control" type="text" id="password" name="password"><br><br>
+        <div class="row">
+            <div class="col text-center">
+                <button class="btn btn-secondary" id="edit"></button>
+                <button class="btn btn-outline-secondary" id="nav_back"></button>
+            </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

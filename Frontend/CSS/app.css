@@ -1,3 +1,8 @@
 .form-group {
-    margin-bottom: 0px !important;
-  }
+  margin-bottom: 0px !important;
+}
+
+.buttons_center {
+  float: none;
+  margin: 0 auto;
+}
