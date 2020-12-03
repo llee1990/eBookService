@@ -3,44 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../CSS/user.css">
     <title>User Portal</title>
 </head>
 <body>
-    <button id="logout" onclick="signOut()">Sign out</button>
-    <div id="user_info">
-        <button id="user_info_settings">User Settings</button>
+    <div class="ml-2 mr-2 mt-2 mb-2 container-fluid">
+        <div class="row">
+            <div>
+                <button id="logout" class="ml-2 mr-1 btn btn-secondary" onclick="signOut()">Sign out</button>
+            </div>
+            <div id="user_info">
+                <button class="mr-1 btn btn-outline-secondary" id="user_info_settings">User Settings</button>
+            </div>
+        
+            <div id="upload">
+                <button class="mr-2 btn btn-outline-secondary" id="eb_upload">Upload Ebook</button>
+            </div>
+        </div>
+        <br><br><br>
+        <div class="mb-0 pb-0 form-group" id="search">
+            <label for="eb_search">Search eBooks:</label>
+            <input class="form-control" type="text" id="eb_search" name="eb_search"><br><br>
+        </div>
+        <div class="form-group" id="search_options">
+            <form class="row" action="" id="search_o">
+                <label class="col-sm radio-inline"><input type="radio" id="title" name="options" value="title">Title </label>
+                <label class="col-sm radio-inline"><input type="radio" id="genre" name="options" value="genre">Genre </label>
+                <label class="col-sm radio-inline"><input type="radio" id="author" name="options" value="author">Author </label>
+                <label class="col-sm radio-inline"><input type="radio" id="year" name="options" value="year">Publication Year </label>
+                <label class="col-sm radio-inline"><input type="radio" id="user" name="options" value="user">Specific User</label>
+            </form>
+        </div>
+        <div class="row">
+            <input class="ml-2 mr-1 btn btn-outline-secondary" type="submit" id="eb_submit" value="Search">
+            <input class="mr-1 btn btn-outline-secondary" type="submit" id="eb_user_search">
+            <input class="mr-2 btn btn-outline-secondary" type="submit" id="eb_total_search" value="Search All EBooks">
+        </div>
     </div>
 
-    <div id="upload">
-        <button id="eb_upload">Upload Ebook</button>
+    <div class="container-fluid" id="search_results">
     </div>
 
-    <div id="search">
-        <label for="eb_search">Search eBooks:</label>
-        <input type="text" id="eb_search" name="eb_search"><br><br>
-        <input type="submit" id="eb_submit" value="Search">
-        <input type="submit" id="eb_user_search">
-        <input type="submit" id="eb_total_search" value="Browse all eBooks">
-    </div>
-    <br>
-    <div id="search_options">
-        <form action="" id="search_o">
-            <input type="radio" id="title" name="options" value="title">Title<br>
-
-            <input type="radio" id="genre" name="options" value="genre">Genre<br>
-
-            <input type="radio" id="author" name="options" value="author">Author<br>
-
-            <input type="radio" id="year" name="options" value="year">Publication Year<br>
-
-            <input type="radio" id="user" name="options" value="user">Specific User<br>
-        </form>
-    </div>
-
-    <div id="search_results">
-    </div>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <script src="../../AuthorityLogic/authority.js"></script>
     <script src="../../Constants/strings.js"></script>
